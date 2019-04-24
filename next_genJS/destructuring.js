@@ -32,6 +32,7 @@ const person = {
 //This truly copies the 
 //properties of person into the second
 //person object
+
 const secondPerson ={ 
 	...person
 
