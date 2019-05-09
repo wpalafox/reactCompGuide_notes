@@ -1,3 +1,19 @@
 .App {
-  margin: 16px;
+  margin: 8%;
+  text-align: left;
 }
+
+input {
+  height: 2em;
+  width: 40em;
+  text-align: left;
+
+
+}
+
+.inputWrapper{
+  display: flex; 
+  justify-content: center;
+  align-content: center;
+}
+

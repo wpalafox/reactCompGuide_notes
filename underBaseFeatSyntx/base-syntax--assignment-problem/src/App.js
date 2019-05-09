@@ -3,6 +3,8 @@ import './App.css';
 import UserOutput from './User/UserOutput'
 import UserInput from './User/UserInput';
 
+
+
 class App extends Component {
   state = {
     users: [
@@ -29,8 +31,19 @@ class App extends Component {
   
   
   render() {
+    const style = {
+      backgroundColor:'grey',
+      font: 'inherit',
+      border: '5px solid blue',
+      padding: '8px'
+
+
+    }
+
+    
     return (
-      <div className="App">
+      <div className="App"
+      style={style}>
         <ol>
           {/*<li>Create TWO new components: UserInput and UserOutput</li>*/}
           {/*<li>UserInput should hold an input element, UserOutput two paragraphs</li>*/}
