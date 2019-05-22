@@ -5,37 +5,46 @@ import Person from './Person/Person';
 class App extends Component {
   state = {
     persons: [
-      { name: 'Max', age: 28 },
-      { name: 'Manu', age: 29 },
-      { name: 'Stephanie', age: 26 }
+      { id: 'asdf1', name: 'Max', age: 28 },
+      { id: 'vasdf1', name: 'Manu', age: 29 },
+      { id: 'asdf2', name: 'Stephanie', age: 26 }
     ],
     otherState: 'some other value',
     showPersons: false
   }
 
   deletePersonHandler = (personIndex) => {
-    const persons = this.state.persons;
+    // const persons = this.state.persons.slice();
+    const persons = [...this.state.persons];
+    //Now we have a new array with the objects from the old array 
+    //But not the array itself.
     persons.splice(personIndex, 1); 
     this.setState({persons: persons})
   }
 
-  nameChangedHandler = (event) => {
+  nameChangedHandler = (event, id) => {
+    const personIndex = this.state.persons.findIndex(p => {
+      return p.id === id;
+    });
 
-    this.setState( {
-      persons: [
-        { name: 'Max', age: 28 },
-        { name: event.target.value, age: 29 },
-        { name: 'Scarlett', age: 27 }
-      ]
-    } )
+    const person = {
+      ...this.state.persons[personIndex]
+    };
+
+    //modifies the name
+    person.name = event.target.value;
+
+    //creates a copy array 
+    const persons = [...this.state.persons];
+    //modifies the person in the selected input field
+    persons[personIndex] = person;
+    
+    this.setState( {persons: persons} ); 
   }
 
   togglePersonsHandler = () => {
     const doesShow = this.state.showPersons;
     this.setState({showPersons: !doesShow})
-
-
-
   }
 
 
@@ -58,7 +67,9 @@ class App extends Component {
           return <Person
           click={() => this.deletePersonHandler(index)} 
           name={person.name} 
-          age={person.age} />
+          age={person.age}
+          key={person.id}
+          changed={(event) => this.nameChangedHandler(event, person.id)} />
         })}
             
 
