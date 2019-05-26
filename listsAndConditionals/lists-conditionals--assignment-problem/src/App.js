@@ -7,14 +7,16 @@ import CharComponent from './Components/CharComponent'
 
 class App extends Component {
   state = {
-    lengthOftext: 0,
-    longEnough: false 
+    userInput: ''
    
 
 }
-  
+
+
+ 
+  /*  Code I did not end up keeping, but works
   countCharacters = (event) => {
-    let lengthOfBox = event.target.value.length
+    let lengthOfBox = this.state.userInput.length
     this.setState({lengthOftext: lengthOfBox})
     if(lengthOfBox >= 5){
       this.setState({longEnough: true})
@@ -24,15 +26,31 @@ class App extends Component {
 
   }
 
+  */ 
   
-  
-  
-  
+ inputChangedHandler = (event) => {
+  this.setState({userInput: event.target.value}); 
+}
+
+deleteCharHandler = (index) => {
+  const text = this.state.userInput.split('');
+  text.splice(index, 1);
+  const updatedText = text.join(''); 
+
+  this.setState({userInput: updatedText});
+
+}
   
   
   render() {
-
-    
+  /*you have to pass an empty string into map in order for map to treat the string as an array  */
+    const charList = this.state.userInput.split('').map((char, index) => {
+      return <CharComponent 
+      character={char} 
+      key={index}
+      clicked={() => this.deleteCharHandler(index)}
+       />;
+    });
 
     return (
 
@@ -47,11 +65,15 @@ class App extends Component {
           <li>When you click a CharComponent, it should be removed from the entered text.</li>
         </ol>
         <p>Hint: Keep in mind that JavaScript strings are basically arrays!</p>
-        <input type="text" onChange={this.countCharacters} />
-        <p>Length of text: {this.state.lengthOftext} </p>
-        <ValidationComponent textL={this.state.lengthOftext} validState={this.state.longEnough} />
+        <hr/>
+        <input type="text" 
+        onChange={this.inputChangedHandler} 
+        value={this.state.userInput} />
+        
+        <p>Length of text: {this.state.userInput.length} </p>
+        <ValidationComponent textL={this.state.userInput.length} />
 
-        <CharComponent />
+         {charList}
       </div>
     );
   }

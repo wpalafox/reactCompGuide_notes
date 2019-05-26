@@ -1,22 +1,16 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-export default class ValidationComponent extends Component {
+export default function ValidationComponent(props) {
+   let validationMessage = 'Text long enough';
+
+   if(props.textL <= 5) {
+       validationMessage = 'Text too short';
+   }
     
     
-    render() {
-        
-        
-        
-        
-        return (
-            <div>
-                <h1>{this.props.textL}</h1>
-               
-            { this.props.validState? 
-                <h2>Validation: Long Enough </h2>
-                :  <h2>Validation: Too short </h2>
-            }
-            </div>
-        )
-    }
+    return (
+        <div>
+            <p>{validationMessage}</p>
+        </div>
+    )
 }
